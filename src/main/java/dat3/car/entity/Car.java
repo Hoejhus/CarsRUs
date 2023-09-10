@@ -3,6 +3,9 @@ package dat3.car.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -10,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 // ----Lombok anotations above --------- //
 @Entity
+@Table(name = "car")
 public class Car extends AdminDetails {
 
   @Id
@@ -25,8 +29,25 @@ public class Car extends AdminDetails {
   @Column(name = "max_discount")
   private Integer bestDiscount;
 
+  @OneToMany(mappedBy = "car")
+  List<Reservation> reservations;
+
+  public void addReservation(Reservation reservation) {
+    if (reservations == null) {
+      reservations = new ArrayList<>();
+    }
+    reservations.add(reservation);
+  }
 
   public Car(String brand, String model, double pricePrDay, Integer bestDiscount) {
+    this.brand = brand;
+    this.model = model;
+    this.pricePrDay = pricePrDay;
+    this.bestDiscount = bestDiscount;
+  }
+
+  public Car(int id, String brand, String model, double pricePrDay, Integer bestDiscount) {
+    this.id = id;
     this.brand = brand;
     this.model = model;
     this.pricePrDay = pricePrDay;

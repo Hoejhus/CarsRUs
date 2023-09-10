@@ -19,10 +19,11 @@ In my code i simply defined the tables and the ids where in Car its generated wi
 With my Car entity code i use the annotation "@GeneratedValue(strategy = GenerationType.IDENTITY)" to make MySQL autoincrement the Id. 
 
 ### How to use and define repositories and relevant query methods using Spring Data JPAs repository pattern
+I make an interface that extends JpaRepository and then i can use the methods that are defined in JpaRepository. I can also make my own methods and use the @Query annotation to make a custom query.
 
 ### How to write simple "integration" tests, using H2 as a mock-database instead of MySQL
 If you remove the Spring data source, then the SQL environment no longer works and the H2 in memory database is used instead.
 Here you can write tests which only gets excecuted on the mock database.
 
 ### How to add (dev) connection details for you local MySQL database
-### How you did that
+I use the application.properties file to define the connection details for my local MySQL database. Along with the environment variables.

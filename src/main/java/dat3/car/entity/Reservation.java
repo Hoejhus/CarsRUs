@@ -4,36 +4,34 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
-
+//Lombok above
 @Entity
-@Table(name = "reservation")
 public class Reservation extends AdminDetails{
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  int id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  LocalDate rentalDate;
 
-    @ManyToOne
-    Member member;
+  @ManyToOne
+  Member member;
 
-    @ManyToOne
-    Car car;
+  @ManyToOne
+  Car car;
 
-    @Column(nullable = false)
-    private LocalDate rentalDate;
+  public Reservation(LocalDate rentalDate,Car car, Member member) {
+    this.rentalDate = rentalDate;
+    this.member = member;
+    this.car = car;
+    car.addReservation(this);
+    member.addReservation(this);
 
-    public Reservation(Member member, Car car, LocalDate rentalDate) {
-        this.member = member;
-        this.car = car;
-        this.rentalDate = rentalDate;
-        car.addReservation(this);
-        member.addReservation(this);
-    }
+  }
+
 }
